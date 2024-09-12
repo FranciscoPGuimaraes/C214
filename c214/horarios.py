@@ -43,3 +43,19 @@ class HorarioAtendimento:
                 "sala": dados["sala"],
                 "predio": dados["predio"]
             }
+
+    def buscar_horarios_professor(self, nome_professor: str):
+        json_response = self.service.busca_horarios_professor(nome_professor)
+
+        if json_response is None:
+            return "Professor não encontrado"
+        else:
+            dados = json.loads(json_response)
+
+            return {
+                "nomeDoProfessor": dados["nomeDoProfessor"],
+                "horarioDeAtendimento": dados["horarioDeAtendimento"],
+                "periodo": dados["periodo"],
+                "sala": dados["sala"],
+                "predio": dados["predio"]
+            }
