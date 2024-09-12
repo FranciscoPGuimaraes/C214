@@ -52,4 +52,8 @@ class TestHorarioAtendimento(unittest.TestCase):
         resultado = self.horario_atendimento.buscar_horario(4)
         self.assertNotEqual(resultado["nomeDoProfessor"], "Prof. Crhis")
 
+    def test_buscar_horarios_professor_inexistente(self):
+        self.mock_service.busca_horarios_professor.return_value = None
+        resultado = self.horario_atendimento.buscar_horarios_professor(None)
 
+        self.assertNotEqual(resultado, "Professor encontrado")
