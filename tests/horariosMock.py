@@ -10,7 +10,7 @@ HORARIOS_CHRIS = '''
 
 HORARIOS_LAURA = '''
 {
-    "nomeDoProfessor": "Prof. Maria",
+    "nomeDoProfessor": "Prof. Laura",
     "horarioDeAtendimento": "14:00 - 16:00",
     "periodo": "Noturno",
     "sala": 7,
@@ -20,7 +20,7 @@ HORARIOS_LAURA = '''
 
 HORARIOS_XICO = '''
 {
-    "nomeDoProfessor": "Prof. João",
+    "nomeDoProfessor": "Prof. Xico",
     "horarioDeAtendimento": "10:00 - 12:00",
     "periodo": "Integral",
     "sala": 12,
