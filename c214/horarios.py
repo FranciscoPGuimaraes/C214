@@ -59,3 +59,4 @@ class HorarioAtendimento:
                 "sala": dados["sala"],
                 "predio": dados["predio"]
             }
+
