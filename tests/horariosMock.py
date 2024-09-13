@@ -47,3 +47,10 @@ HORARIOS_ANA = '''
     "predio": 6
 }
 '''
+HORARIOS = [
+    HORARIOS_CHRIS,
+    HORARIOS_LAURA,
+    HORARIOS_XICO,
+    HORARIOS_PEDRO,
+    HORARIOS_ANA
+]

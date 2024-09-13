@@ -1,6 +1,7 @@
 import json
 
 from c214.horarioAtendimentoService import HorarioAtendimentoService
+from tests.horariosMock import HORARIOS
 
 
 class HorarioAtendimento:
@@ -28,21 +29,19 @@ class HorarioAtendimento:
         }
 
     def buscar_por_sala(self, sala: int):
-        salas_com_atendimento = [22, 15, 12, 7]
+        for horario_json in HORARIOS:
+            dados = json.loads(horario_json)
+            if dados["sala"] == sala:
+                return {
+                    "nomeDoProfessor": dados["nomeDoProfessor"],
+                    "horarioDeAtendimento": dados["horarioDeAtendimento"],
+                    "periodo": dados["periodo"],
+                    "sala": dados["sala"],
+                    "predio": dados["predio"]
+                }
 
-        if sala not in salas_com_atendimento:
-            return "Sala sem atendimento"
-        else:
-            json_response = self.service.busca_por_sala(sala)
-            dados = json.loads(json_response)
+        return "Sala sem atendimento"
 
-            return {
-                "nomeDoProfessor": dados["nomeDoProfessor"],
-                "horarioDeAtendimento": dados["horarioDeAtendimento"],
-                "periodo": dados["periodo"],
-                "sala": dados["sala"],
-                "predio": dados["predio"]
-            }
 
     def buscar_horarios_professor(self, nome_professor: str):
         json_response = self.service.busca_horarios_professor(nome_professor)
