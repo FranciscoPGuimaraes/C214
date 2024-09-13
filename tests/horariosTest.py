@@ -10,19 +10,19 @@ class TestHorarioAtendimento(unittest.TestCase):
         self.mock_service = MagicMock()
         self.horario_atendimento = HorarioAtendimento(service=self.mock_service)
 
-    #teste ok
+    # teste ok
     def test_buscar_horario_chris(self):
         self.mock_service.busca_horario.return_value = HORARIOS_CHRIS
         resultado = self.horario_atendimento.buscar_horario(4)
         self.assertEqual(resultado["nomeDoProfessor"], "Prof. Chris")
 
-    #teste ok
+    # teste ok
     def test_buscar_predio_atendimento_laura(self):
         self.mock_service.busca_horario.return_value = HORARIOS_LAURA
         resultado = self.horario_atendimento.buscar_horario(7)
         self.assertEqual(resultado["predio"], 2)
 
-    #teste ok
+    # teste ok
     def test_buscar_dados_completos_professor_xico(self):
         self.mock_service.busca_horario.return_value = HORARIOS_XICO
         resultado = self.horario_atendimento.buscar_horario(12)
@@ -32,19 +32,19 @@ class TestHorarioAtendimento(unittest.TestCase):
             "periodo": "Integral",
             "sala": 12,
             "predio": 3
-            })
+        })
 
-    #teste ok
+    # teste ok
     def test_buscar_sala_sem_atendimento(self):
+        self.mock_service.busca_por_sala.return_value = "Sala sem atendimento"
         resultado = self.horario_atendimento.buscar_por_sala(10)
-        self.assertEqual(resultado, 'Sala sem atendimento')
+        self.assertEqual(resultado, 'Sala sem atendimento/digitada de forma incorreta')
 
-    #teste ok
+    # teste ok
     def test_buscar_professor_na_sala(self):
         self.mock_service.busca_por_sala.return_value = HORARIOS_PEDRO
         resultado = self.horario_atendimento.buscar_por_sala(15)
         self.assertEqual(resultado["nomeDoProfessor"], 'Prof. Pedro')
-
 
     def test_buscar_dados_incompletos_professor_chris(self):
         self.mock_service.busca_horario.return_value = HORARIOS_XICO
@@ -55,27 +55,26 @@ class TestHorarioAtendimento(unittest.TestCase):
         self.assertEqual(resultado["sala"], 12)
         self.assertEqual(resultado["predio"], 3)
 
-    #teste ok
+    # teste ok
     def test_busca_prof_nome_errado_test(self):
-        self.mock_service.busca_horarios_professor.return_value = HORARIOS_CHRIS
-        resultado = self.horario_atendimento.buscar_horarios_professor("Prof. Crhis")
-        self.assertEqual(resultado, "Nome do professor não encontrado")
+        self.mock_service.busca_horarios_professor.return_value = None
+        resultado = self.horario_atendimento.buscar_professor("Prof. Crhis")
+        self.assertEqual(resultado, "Nome do Professor Incorreto")
+
+    # teste ok
+    def test_buscar_professor_inexistente(self):
+        self.mock_service.busca_horarios_por_horario.return_value = None
+        resultado = self.horario_atendimento.buscar_professor(None)
+        self.assertEqual(resultado, "Nome do Professor Incorreto")
 
     #teste ok
-    def test_buscar_horarios_professor_inexistente(self):
-        self.mock_service.busca_horarios_professor.return_value = None
-        resultado = self.horario_atendimento.buscar_horarios_professor(None)
-
-        self.assertNotEqual(resultado["nomeDoProfessor"], "Professor encontrado")
-
     def test_buscar_horarios_inexistente(self):
-        self.mock_service.busca_horarios_professor.return_value = HORARIOS_ANA
-        resultado = self.horario_atendimento.buscar_horarios_professor("Prof. Ana")
+        self.mock_service.buscar_professor_pelo_horario.return_value = None
+        resultado = self.horario_atendimento.buscar_professor_pelo_horario("15h")
+        self.assertEqual(resultado, "Nenhum professor disponível/Horario digitado incorretamente")
 
-        self.assertNotEqual(resultado["horarioDeAtendimento"], "13h")
-
+    #teste ok
     def test_buscar_predio_invalido(self):
-        self.mock_service.busca_horarios_professor.return_value = HORARIOS_ANA
-        resultado = self.horario_atendimento.buscar_horarios_professor("Prof. Ana")
-
-        self.assertNotEqual(resultado["predio"], "predio1")
+        self.mock_service.buscar_por_predio.return_value = None
+        resultado = self.horario_atendimento.buscar_por_predio("hmm")
+        self.assertEqual(resultado, "Predio não existe/digitado de forma incorreta")

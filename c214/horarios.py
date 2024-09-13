@@ -17,8 +17,12 @@ class HorarioAtendimento:
             predio = 1
         elif 6 <= sala <= 10:
             predio = 2
-        else:
+        elif 11 <= sala <= 20:
             predio = 3
+        elif 21 <= sala <= 25:
+            predio = 6
+        else:
+            return "Predio não existe"
 
         return {
             "nomeDoProfessor": dados["nomeDoProfessor"],
@@ -27,6 +31,34 @@ class HorarioAtendimento:
             "sala": dados["sala"],
             "predio": predio
         }
+
+    def buscar_professor_pelo_horario(self, hora):
+        for horario_json in HORARIOS:
+            dados = json.loads(horario_json)
+            if dados["horarioDeAtendimento"] == hora:
+                return {
+                    "nomeDoProfessor": dados["nomeDoProfessor"],
+                    "horarioDeAtendimento": dados["horarioDeAtendimento"],
+                    "periodo": dados["periodo"],
+                    "sala": dados["sala"],
+                    "predio": dados["predio"]
+                }
+
+        return "Nenhum professor disponível/Horario digitado incorretamente"
+
+    def buscar_professor(self, professor: str):
+        for horario_json in HORARIOS:
+            dados = json.loads(horario_json)
+            if dados["nomeDoProfessor"] == professor:
+                return {
+                    "nomeDoProfessor": dados["nomeDoProfessor"],
+                    "horarioDeAtendimento": dados["horarioDeAtendimento"],
+                    "periodo": dados["periodo"],
+                    "sala": dados["sala"],
+                    "predio": dados["predio"]
+                }
+
+        return "Nome do Professor Incorreto"
 
     def buscar_por_sala(self, sala: int):
         for horario_json in HORARIOS:
@@ -40,24 +72,19 @@ class HorarioAtendimento:
                     "predio": dados["predio"]
                 }
 
-        return "Sala sem atendimento"
+        return "Sala sem atendimento/digitada de forma incorreta"
 
-    def buscar_horarios_professor(self, nome_professor: str):
-        json_response = self.service.busca_horarios_professor(nome_professor)
+    def buscar_por_predio(self, predio):
+        for horario_json in HORARIOS:
+            dados = json.loads(horario_json)
+            if dados["predio"] == predio:
+                return {
+                    "nomeDoProfessor": dados["nomeDoProfessor"],
+                    "horarioDeAtendimento": dados["horarioDeAtendimento"],
+                    "periodo": dados["periodo"],
+                    "sala": dados["sala"],
+                    "predio": dados["predio"]
+                }
 
-        if not json_response:
-            return "Professor não encontrado"
-
-        dados = json.loads(json_response)
-
-        if dados["nomeDoProfessor"].lower() == nome_professor.lower():
-            return {
-                "nomeDoProfessor": dados["nomeDoProfessor"],
-                "horarioDeAtendimento": dados["horarioDeAtendimento"],
-                "periodo": dados["periodo"],
-                "sala": dados["sala"],
-                "predio": dados["predio"]
-            }
-        else:
-            return "Nome do professor não encontrado"
+        return "Predio não existe/digitado de forma incorreta"
 

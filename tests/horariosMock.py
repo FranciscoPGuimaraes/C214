@@ -1,3 +1,5 @@
+from debugpy.common import json
+
 HORARIOS_CHRIS = '''
 {
     "nomeDoProfessor": "Prof. Chris",
@@ -7,7 +9,6 @@ HORARIOS_CHRIS = '''
     "predio": 1
 }
 '''
-
 HORARIOS_LAURA = '''
 {
     "nomeDoProfessor": "Prof. Laura",
@@ -17,7 +18,6 @@ HORARIOS_LAURA = '''
     "predio": 2
 }
 '''
-
 HORARIOS_XICO = '''
 {
     "nomeDoProfessor": "Prof. Xico",
@@ -27,7 +27,6 @@ HORARIOS_XICO = '''
     "predio": 3
 }
 '''
-
 HORARIOS_PEDRO = '''
 {
     "nomeDoProfessor": "Prof. Pedro",
@@ -37,7 +36,6 @@ HORARIOS_PEDRO = '''
     "predio": 4
 }
 '''
-
 HORARIOS_ANA = '''
 {
     "nomeDoProfessor": "Prof. Ana",
