@@ -34,16 +34,17 @@ class TestHorarioAtendimento(unittest.TestCase):
             "predio": 3
             })
 
-
+    #teste ok
     def test_buscar_sala_sem_atendimento(self):
         resultado = self.horario_atendimento.buscar_por_sala(10)
         self.assertEqual(resultado, 'Sala sem atendimento')
 
     #teste ok
     def test_buscar_professor_na_sala(self):
-        self.mock_service.busca_por_sala.return_value = HORARIOS_LAURA
+        self.mock_service.busca_por_sala.return_value = HORARIOS_PEDRO
         resultado = self.horario_atendimento.buscar_por_sala(15)
-        self.assertEqual(resultado["nomeDoProfessor"], 'Prof. Laura')
+        self.assertEqual(resultado["nomeDoProfessor"], 'Prof. Pedro')
+
 
     def test_buscar_dados_incompletos_professor_chris(self):
         self.mock_service.busca_horario.return_value = HORARIOS_XICO
@@ -54,16 +55,18 @@ class TestHorarioAtendimento(unittest.TestCase):
         self.assertEqual(resultado["sala"], 12)
         self.assertEqual(resultado["predio"], 3)
 
+    #teste ok
     def test_busca_prof_nome_errado_test(self):
-        self.mock_service.busca_horario.return_value = HORARIOS_CHRIS
-        resultado = self.horario_atendimento.buscar_horario(4)
-        self.assertNotEqual(resultado["nomeDoProfessor"], "Prof. Crhis")
+        self.mock_service.busca_horarios_professor.return_value = HORARIOS_CHRIS
+        resultado = self.horario_atendimento.buscar_horarios_professor("Prof. Crhis")
+        self.assertEqual(resultado, "Nome do professor não encontrado")
 
+    #teste ok
     def test_buscar_horarios_professor_inexistente(self):
         self.mock_service.busca_horarios_professor.return_value = None
         resultado = self.horario_atendimento.buscar_horarios_professor(None)
 
-        self.assertNotEqual(resultado, "Professor encontrado")
+        self.assertNotEqual(resultado["nomeDoProfessor"], "Professor encontrado")
 
     def test_buscar_horarios_inexistente(self):
         self.mock_service.busca_horarios_professor.return_value = HORARIOS_ANA
