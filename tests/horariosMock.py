@@ -5,8 +5,7 @@ HORARIOS_CHRIS = '''
     "nomeDoProfessor": "Prof. Chris",
     "horarioDeAtendimento": "08:00 - 10:00",
     "periodo": "Integral",
-    "sala": 4,
-    "predio": 1
+    "sala": 4
 }
 '''
 HORARIOS_LAURA = '''
@@ -14,8 +13,7 @@ HORARIOS_LAURA = '''
     "nomeDoProfessor": "Prof. Laura",
     "horarioDeAtendimento": "14:00 - 16:00",
     "periodo": "Noturno",
-    "sala": 7,
-    "predio": 2
+    "sala": 7
 }
 '''
 HORARIOS_XICO = '''
@@ -23,32 +21,20 @@ HORARIOS_XICO = '''
     "nomeDoProfessor": "Prof. Xico",
     "horarioDeAtendimento": "10:00 - 12:00",
     "periodo": "Integral",
-    "sala": 12,
-    "predio": 3
+    "sala": 27
 }
 '''
-HORARIOS_PEDRO = '''
+
+SALA_10 = '''
 {
-    "nomeDoProfessor": "Prof. Pedro",
-    "horarioDeAtendimento": "09:00 - 11:00",
-    "periodo": "Integral",
-    "sala": 15,
-    "predio": 4
+    "sala": 10,
+    "horarios_livres": ["12:00", "13:00", "15:00"]
 }
 '''
-HORARIOS_ANA = '''
+
+SALA_27 = '''
 {
-    "nomeDoProfessor": "Prof. Ana",
-    "horarioDeAtendimento": "11:00 - 13:00",
-    "periodo": "Noturno",
-    "sala": 22,
-    "predio": 6
+    "sala": 27,
+    "horarios_livres": ["12:00", "13:00", "15:00"]
 }
 '''
-HORARIOS = [
-    HORARIOS_CHRIS,
-    HORARIOS_LAURA,
-    HORARIOS_XICO,
-    HORARIOS_PEDRO,
-    HORARIOS_ANA
-]
