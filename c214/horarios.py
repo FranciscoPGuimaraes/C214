@@ -72,3 +72,16 @@ class HorarioAtendimento:
         horario_json = json.dumps(novo_horario)
 
         return self.service.inserir_horario(professor_id, horario_json)
+
+    def reservar_sala(self, sala: int, horario: str):
+        horario_json = self.service.busca_por_sala(sala)
+
+        if horario_json:
+            dados = json.loads(horario_json)
+
+            if horario in dados["horarios_livres"]:
+                return self.service.reservar_sala(sala, horario)
+            else:
+                return "Horario indisponivel"
+
+        return "Sala não econtrada"

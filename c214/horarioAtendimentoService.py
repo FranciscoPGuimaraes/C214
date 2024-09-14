@@ -13,3 +13,7 @@ class HorarioAtendimentoService(ABC):
     @abstractmethod
     def inserir_horario(self, professor_id: int, horarios) -> bool:
         pass
+
+    @abstractmethod
+    def reservar_sala(self, sala_id: int, horario: str) -> bool:
+        pass

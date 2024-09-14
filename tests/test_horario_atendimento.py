@@ -107,3 +107,38 @@ class test_horario_atendimento(unittest.TestCase):
             "predio": 3,
             "horarios_livres": []
         })
+
+#positivo
+    def test_reservar_sala(self):
+        self.mock_service.busca_por_sala.return_value = SALA_10
+        self.mock_service.reservar_sala.return_value = True
+        resultado = self.horario_atendimento.reservar_sala(10, "12:00")
+        self.assertEqual(resultado, True)
+
+    #negativo
+    def test_reservar_sala_inexistente(self):
+        self.mock_service.busca_por_sala.return_value = None
+        self.mock_service.reservar_sala.return_value = False
+        resultado = self.horario_atendimento.reservar_sala(90, "12:00")
+        self.assertEqual(resultado, "Sala não econtrada")
+
+    #negativo
+    def test_reservar_sala_sem_horarios(self):
+        self.mock_service.busca_por_sala.return_value = SALA_20
+        self.mock_service.reservar_sala.return_value = False
+        resultado = self.horario_atendimento.reservar_sala(20, "12:00")
+        self.assertEqual(resultado, "Horario indisponivel")
+
+    #negativo
+    def test_reservar_sala_horario_indisponivel(self):
+        self.mock_service.busca_por_sala.return_value = SALA_10
+        self.mock_service.reservar_sala.return_value = False
+        resultado = self.horario_atendimento.reservar_sala(10, "00:00")
+        self.assertEqual(resultado, "Horario indisponivel")
+
+    #negativo
+    def test_reservar_sala_falha_ao_reservar(self):
+        self.mock_service.busca_por_sala.return_value = SALA_10
+        self.mock_service.reservar_sala.return_value = False
+        resultado = self.horario_atendimento.reservar_sala(10, "12:00")
+        self.assertEqual(resultado, False)
