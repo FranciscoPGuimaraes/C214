@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Optional
 
 class HorarioAtendimentoService(ABC):
 
@@ -12,6 +11,5 @@ class HorarioAtendimentoService(ABC):
         pass
 
     @abstractmethod
-    def busca_horarios_professor(self, nome_professor: str) -> Optional[str]:
+    def inserir_horario(self, professor_id: int, horarios) -> bool:
         pass
-

@@ -1,7 +1,6 @@
 import json
 
 from c214.horarioAtendimentoService import HorarioAtendimentoService
-from tests.horariosMock import HORARIOS
 
 
 class HorarioAtendimento:
@@ -10,7 +9,7 @@ class HorarioAtendimento:
 
     def buscar_horario(self, professor_id: int):
         json_response = self.service.busca_horario(professor_id)
-        if dados:
+        if json_response:
             dados = json.loads(json_response)
 
             sala = int(dados["sala"])
@@ -36,7 +35,8 @@ class HorarioAtendimento:
 
     def buscar_por_sala(self, sala: int):
         horario_json = self.service.busca_por_sala(sala)
-        if dados:
+
+        if horario_json:
             dados = json.loads(horario_json)
             sala = int(dados["sala"])
             if 1 <= sala <= 5:
@@ -53,7 +53,22 @@ class HorarioAtendimento:
             return {
                 "sala": dados["sala"],
                 "predio": predio,
-                "horarios_livres": dados["horarios"]
+                "horarios_livres": dados["horarios_livres"]
             }
 
         return "Sala não econtrada"
+
+    def inserir_horario(self, professor_id: int, horario_atendimento: str, periodo: str, sala: int):
+        if 1 > sala > 25: return "Sala inválida"
+        if periodo not in ["Integral", "Noturno"]: return "Periodo invalido"
+
+        novo_horario = {
+            "professor_id": professor_id,
+            "horarioDeAtendimento": horario_atendimento,
+            "periodo": periodo,
+            "sala": sala
+        }
+
+        horario_json = json.dumps(novo_horario)
+
+        return self.service.inserir_horario(professor_id, horario_json)
